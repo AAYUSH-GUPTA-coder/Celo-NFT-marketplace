@@ -3,12 +3,14 @@ pragma solidity ^0.8.4;
 
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 
-error NOT_THE_OWNER_OF_NFT(address);
-error ITEM_IS_ALREADY_LISTED();
-error ITEM_IS_NOT_LISTED();
-error PRICE_MUST_BE_GREATER_THAN_ZERO();
-error MARKETPLACE_HAS_NO_APPROVAL();
-error INCORRECT_ETH_SUPPLIED();
+error MRKT__NotTheOwner();
+error MRKT__NftAlreadyListed();
+error MRKT__NftNotListed();
+error MRKT__NftPriceCantBeZero();
+error MRKT__IncorrectEthSupplied();
+error MRKT__FailedToSendEth();
+error MRKT__NoApprovalForNFT();
+
 
 contract NFTMarketplace {
     struct Listing {
@@ -19,32 +21,29 @@ contract NFTMarketplace {
     mapping(address => mapping(uint256 => Listing)) public listings;
 
     modifier isNFTOwner(address nftAddress, uint256 tokenId) {
-        // require(
-        //     IERC721(nftAddress).ownerOf(tokenId) == msg.sender,
-        //     "MRKT: Not the owner"
-        // );
-
-        if (IERC721(nftAddress).ownerOf(tokenId) != msg.sender) {
-            revert NOT_THE_OWNER_OF_NFT(nftAddress);
+        if(IERC721(nftAddress).ownerOf(tokenId) != msg.sender){
+            revert MRKT__NotTheOwner();
         }
         _;
     }
 
     modifier isNotListed(address nftAddress, uint256 tokenId) {
-        // require(
-        //     listings[nftAddress][tokenId].price == 0,
-        //     "MRKT: Already listed"
-        // );
-        if (listings[nftAddress][tokenId].price != 0) {
-            revert ITEM_IS_ALREADY_LISTED();
+        if(listings[nftAddress][tokenId].price != 0){
+            revert MRKT__NftAlreadyListed();
         }
         _;
     }
 
     modifier isListed(address nftAddress, uint256 tokenId) {
-        // require(listings[nftAddress][tokenId].price > 0, "MRKT: Not listed");
-        if (listings[nftAddress][tokenId].price == 0) {
-            revert ITEM_IS_NOT_LISTED();
+        if(listings[nftAddress][tokenId].price == 0){
+            revert MRKT__NftNotListed();
+        }
+        _;
+    }
+
+    modifier isPriceAboveZero(uint price) {
+        if(price == 0){
+            revert MRKT__NftPriceCantBeZero();
         }
         _;
     }
@@ -80,23 +79,17 @@ contract NFTMarketplace {
         external
         isNotListed(nftAddress, tokenId)
         isNFTOwner(nftAddress, tokenId)
+        isPriceAboveZero(price)
     {
-        // require(price > 0, "MRKT: Price must be > 0");
-        if (price == 0) {
-            revert PRICE_MUST_BE_GREATER_THAN_ZERO();
-        }
         IERC721 nftContract = IERC721(nftAddress);
-        // require(
-        //     nftContract.isApprovedForAll(msg.sender, address(this)) ||
-        //         nftContract.getApproved(tokenId) == address(this),
-        //     "MRKT: No approval for NFT"
-        // );
-        if (
-            !nftContract.isApprovedForAll(msg.sender, address(this)) ||
-            nftContract.getApproved(tokenId) != address(this)
-        ) {
-            revert MARKETPLACE_HAS_NO_APPROVAL();
-        }
+        
+        if(!nftContract.isApprovedForAll(msg.sender, address(this)) ||
+                nftContract.getApproved(tokenId) != address(this))
+                {
+                    revert MRKT__NoApprovalForNFT();
+                }
+
+
         listings[nftAddress][tokenId] = Listing({
             price: price,
             seller: msg.sender
@@ -118,11 +111,7 @@ contract NFTMarketplace {
         address nftAddress,
         uint256 tokenId,
         uint256 newPrice
-    ) external isListed(nftAddress, tokenId) isNFTOwner(nftAddress, tokenId) {
-        // require(newPrice > 0, "MRKT: Price must be > 0");
-        if(newPrice == 0){
-            revert PRICE_MUST_BE_GREATER_THAN_ZERO();
-        }
+    ) external isListed(nftAddress, tokenId) isNFTOwner(nftAddress, tokenId) isPriceAboveZero(newPrice){
         listings[nftAddress][tokenId].price = newPrice;
         emit ListingUpdated(nftAddress, tokenId, newPrice, msg.sender);
     }
@@ -133,18 +122,21 @@ contract NFTMarketplace {
         isListed(nftAddress, tokenId)
     {
         Listing memory listing = listings[nftAddress][tokenId];
-        // require(msg.value == listing.price, "MRKT: Incorrect ETH supplied");
         if(msg.value != listing.price){
-            revert INCORRECT_ETH_SUPPLIED();
+            revert MRKT__IncorrectEthSupplied();
         }
-        delete listings[nftAddress][tokenId];
+
+		delete listings[nftAddress][tokenId];
 
         IERC721(nftAddress).safeTransferFrom(
             listing.seller,
             msg.sender,
             tokenId
         );
-        payable(listing.seller).transfer(msg.value);
+        (bool sent, ) = payable(listing.seller).call{value: msg.value}("");
+        if(!sent){
+            revert MRKT__FailedToSendEth();
+        }
 
         emit ListingPurchased(nftAddress, tokenId, listing.seller, msg.sender);
     }

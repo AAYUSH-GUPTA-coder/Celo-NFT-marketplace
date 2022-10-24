@@ -13,7 +13,9 @@ contract CeloNFT is ERC721 {
 
     // Hardcoded token URI will return the same metadata
     // for each NFT
+    // overriding the tokenURI function of ERC-721 library
     function tokenURI(uint) public pure override returns (string memory) {
         return "ipfs://QmTy8w65yBXgyfG2ZBg5TrfB2hPjrDQH3RCQFJGkARStJb";
     }
+    // https://ipfs.io/ipfs/QmTy8w65yBXgyfG2ZBg5TrfB2hPjrDQH3RCQFJGkARStJb
 }

@@ -1,0 +1,5 @@
+Celo NFT deployed to: 0xc924b81AF8E90fC2BD3913D7C8eE84f46Ab73a93
+NFT Marketplace deployed to: 0xDb3071925173Fee9C72cB274a38c0E60F0246B75
+Subgraph name: AAYUSH-GUPTA-coder/celo-nft-marketplace
+
+F:/Github-Upload/Celo-NFT-marketplace/hardhat/artifacts/contracts/CeloNFTMarketplace.sol/NFTMarketplace.json
