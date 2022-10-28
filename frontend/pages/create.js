@@ -91,7 +91,8 @@ export default function Create() {
     const createListingTxn = await MarketplaceContract.createListing(
       nftAddress,
       tokenId,
-      parseEther(price)
+      parseEther(price),
+      { gasLimit: 50000 } //! testing
     );
     await createListingTxn.wait();
   }
