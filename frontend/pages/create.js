@@ -92,7 +92,7 @@ export default function Create() {
       nftAddress,
       tokenId,
       parseEther(price),
-      { gasLimit: 50000 } //! testing
+      { gasLimit: 50000 } //! give custom gasLimit
     );
     await createListingTxn.wait();
   }
