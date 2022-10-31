@@ -6,9 +6,9 @@ dataSources:
     name: NFTMarketplace
     network: celo-alfajores
     source:
-      address: "0xDb3071925173Fee9C72cB274a38c0E60F0246B75"
+      address: "0x6aBDEaBe80a763B4Bf3f86731608A69b994a7c13"
       abi: NFTMarketplace
-      startBlock: 14198510
+      startBlock: 14357463
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6

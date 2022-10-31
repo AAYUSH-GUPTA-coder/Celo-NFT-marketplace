@@ -16,6 +16,8 @@ async function main() {
     "NFTMarketplace"
   );
 
+  await celoNftContract.tokenURI(1);
+
   // Deploy the contract
   const nftMarketplaceContract = await NFTMarketplaceFactory.deploy();
 
@@ -24,6 +26,8 @@ async function main() {
 
   // Log the address of the new contract
   console.log("NFT Marketplace deployed to:", nftMarketplaceContract.address);
+
+  await nftMarketplaceContract.listings(celoNftContract.address, 1);
 }
 
 main()

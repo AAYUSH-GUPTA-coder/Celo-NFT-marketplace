@@ -1,11 +1,19 @@
 Celo NFT deployed to: 0xc924b81AF8E90fC2BD3913D7C8eE84f46Ab73a93
 NFT Marketplace deployed to: 0xDb3071925173Fee9C72cB274a38c0E60F0246B75
+
+Celo NFT deployed to: 0x5FbDB2315678afecb367f032d93F642f64180aa3
+NFT Marketplace deployed to: 0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512
+
+Celo NFT deployed to: 0x72a1101B9f4eeD00651055A06a8c6F6285966727
+NFT Marketplace deployed to: 0x6aBDEaBe80a763B4Bf3f86731608A69b994a7c13
+
 Subgraph name: AAYUSH-GUPTA-coder/celo-nft-marketplace
 
 F:/Github-Upload/Celo-NFT-marketplace/hardhat/artifacts/contracts/CeloNFTMarketplace.sol/NFTMarketplace.json
 
 
 Build completed: QmbSQFayPvpMVJDAmUUT6f4AtPNBckV3L5tzWjBhyeuqfC
+Build completed: QmVLDD7v82MqsqQXXZC4xyxvSYZUAFhi82F5uqGU4Ee15z
 
 Deployed to https://thegraph.com/explorer/subgraph/aayush-gupta-coder/celo-nft-marketplace
 
