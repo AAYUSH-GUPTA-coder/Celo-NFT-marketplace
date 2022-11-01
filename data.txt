@@ -7,6 +7,10 @@ NFT Marketplace deployed to: 0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512
 Celo NFT deployed to: 0x72a1101B9f4eeD00651055A06a8c6F6285966727
 NFT Marketplace deployed to: 0x6aBDEaBe80a763B4Bf3f86731608A69b994a7c13
 
+Celo NFT deployed to: 0x1e431B1B0f7863dbf6Af34245c10488AeC700Bc9
+Celo NFT deployed to: 0xf3d6Cb78eC7C8f1A6c98B2D959E201D6D81f2Ccc
+NFT Marketplace deployed to: 0x407CE252aB8A4e005052Bc85683362Bdd8040C9c
+
 Subgraph name: AAYUSH-GUPTA-coder/celo-nft-marketplace
 
 F:/Github-Upload/Celo-NFT-marketplace/hardhat/artifacts/contracts/CeloNFTMarketplace.sol/NFTMarketplace.json
@@ -14,6 +18,9 @@ F:/Github-Upload/Celo-NFT-marketplace/hardhat/artifacts/contracts/CeloNFTMarketp
 
 Build completed: QmbSQFayPvpMVJDAmUUT6f4AtPNBckV3L5tzWjBhyeuqfC
 Build completed: QmVLDD7v82MqsqQXXZC4xyxvSYZUAFhi82F5uqGU4Ee15z
+Build completed: QmUvmWriCaev2MkuKcExYPspo8RDPzdajJQDmMF7vQEc3t
+Build completed: QmP4evoxyLuFCjimpxQSd4uzUGXAxZohhXFaFotmwjpVbj
+Build completed: QmP4evoxyLuFCjimpxQSd4uzUGXAxZohhXFaFotmwjpVbj
 
 Deployed to https://thegraph.com/explorer/subgraph/aayush-gupta-coder/celo-nft-marketplace
 

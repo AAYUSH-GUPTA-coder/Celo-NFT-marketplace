@@ -83,12 +83,11 @@ contract NFTMarketplace {
     {
         IERC721 nftContract = IERC721(nftAddress);
         
-        if(!nftContract.isApprovedForAll(msg.sender, address(this)) ||
-                nftContract.getApproved(tokenId) != address(this))
-                {
-                    revert MRKT__NoApprovalForNFT();
-                }
-
+        require(
+            nftContract.isApprovedForAll(msg.sender, address(this)) ||
+                nftContract.getApproved(tokenId) == address(this),
+            "MRKT: No approval for NFT"
+        );
 
         listings[nftAddress][tokenId] = Listing({
             price: price,
